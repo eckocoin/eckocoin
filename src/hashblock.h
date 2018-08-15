@@ -13,7 +13,6 @@
 #include "sph_shavite.h"
 #include "sph_simd.h"
 #include "sph_echo.h"
-//myfix for x13
 #include "sph_hamsi.h"
 #include "sph_fugue.h"
 
@@ -38,7 +37,6 @@ GLOBAL sph_cubehash512_context  z_cubehash;
 GLOBAL sph_shavite512_context   z_shavite;
 GLOBAL sph_simd512_context      z_simd;
 GLOBAL sph_echo512_context      z_echo;
-//myfix for x13
 GLOBAL sph_hamsi512_context      z_hamsi;
 GLOBAL sph_fugue512_context      z_fugue;
 
@@ -65,7 +63,6 @@ GLOBAL sph_fugue512_context      z_fugue;
 #define ZJH (memcpy(&ctx_jh, &z_jh, sizeof(z_jh)))
 #define ZKECCAK (memcpy(&ctx_keccak, &z_keccak, sizeof(z_keccak)))
 #define ZSKEIN (memcpy(&ctx_skein, &z_skein, sizeof(z_skein)))
-//myfix for x13
 #define ZHAMSI (memcpy(&ctx_hamsi, &z_hamsi, sizeof(z_hamsi)))
 #define ZFUGUE (memcpy(&ctx_fugue, &z_fugue, sizeof(z_fugue)))
 

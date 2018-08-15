@@ -70,7 +70,7 @@ static const int64_t MIN_TX_COUNT = 0;
 /** Minimum TX value (for relaying) */
 static const int64_t MIN_TX_VALUE = 0.01 * COIN;
 /** No amount larger than this (in satoshi) is valid */
-static const int64_t MAX_SINGLE_TX = 400000000 * COIN;//30000000 * COIN; // 30 Million ECKO coins//myfix for max supply
+static const int64_t MAX_SINGLE_TX = 400000000 * COIN;
 /** Moneyrange params */
 inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_SINGLE_TX); }
 /** Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp. */
@@ -84,7 +84,7 @@ static const unsigned int DEFAULT_SCALE_BLOCK_SIZE_OPTIONS = 1;
 /** PoS Reward */
 static const int64_t COIN_YEAR_REWARD = 1.5 * COIN; // Corrected in v1.0.2.0+
 /** PoS Reward Fixed */
-static const int64_t COIN_YEAR_REWARD_FIXED = 10 * CENT;//1.5 * CENT; // 1.5% //myfix for pos reward 10%
+static const int64_t COIN_YEAR_REWARD_FIXED = 10 * CENT;
 /** PoS Superblock Reward */
 static const int64_t COIN_SPRB_REWARD = 3 * COIN; // Corrected in v1.0.2.0+
 /** PoS Superblock Reward Fixed */
@@ -92,11 +92,11 @@ static const int64_t COIN_SPRB_REWARD_FIXED = 3 * CENT; // 3%
 /** MN Reward Fixed */
 static const int64_t MN_REWARD_FIXED = 9 * CENT; // 9% total, 1.5%/3% for standard net, 7.5%/6% for MNs
 /** Block spacing preferred */
-static const int64_t BLOCK_SPACING = 2 * 60;//5 * 60;//myfix for blocktime
+static const int64_t BLOCK_SPACING = 2 * 60;
 /** Block spacing minimum */
-static const int64_t BLOCK_SPACING_MIN = 1 * 60;//3.5 * 60;//myfix for blocktime
+static const int64_t BLOCK_SPACING_MIN = 1 * 60;
 /** Block spacing maximum */
-static const int64_t BLOCK_SPACING_MAX = 3 * 60;//7.5 * 60;//myfix for blocktime
+static const int64_t BLOCK_SPACING_MAX = 3 * 60;
 /** Darksend collateral */
 static const int64_t DARKSEND_COLLATERAL = (0.01*COIN);
 /** Darksend pool values */
@@ -120,13 +120,13 @@ static const int64_t GetTargetSpacing = BLOCK_SPACING;
 /** "reject" message codes **/
 static const unsigned char REJECT_INVALID = 0x10;
 /** MasterNode required collateral */
-inline int64_t MasternodeCollateral(int nHeight) { return 100000; } // 50K ECKO required as collateral//myfix for mn collateral
+inline int64_t MasternodeCollateral(int nHeight) { return 100000; } // 50K ECKO required as collateral
 /** Coinbase transaction outputs can only be staked after this number of new blocks (network rule) */
-static const int nStakeMinConfirmations = 15;//myfix for confirm
+static const int nStakeMinConfirmations = 15;
 /** Coinbase transaction outputs can only be spent after this number of new blocks (network rule) */
-static const int nCoinbaseMaturity = 15; // 15-TXs | 90-Mined//myfix for confirm
+static const int nCoinbaseMaturity = 15; // 15-TXs | 90-Mined
 /** Minimum nCoinAge required to stake PoS */
-static const unsigned int nStakeMinAge = 24 * 60 * 60;// 2 / 60; // 30 minutes//myfix for minstakeage
+static const unsigned int nStakeMinAge = 24 * 60 * 60;// 2 / 60; // 30 minutes
 /** Time to elapse before new modifier is computed */
 static const unsigned int nModifierInterval = 2 * 60;
 /** Genesis Start Time */
@@ -140,7 +140,7 @@ static const unsigned int nNonceTest = 0;
 /** Genesis block subsidy */
 static const int64_t nGenesisBlockReward = 1 * COIN;
 /** Reserve block subsidy */
-static const int64_t nBlockRewardReserve = 2000000 * COIN;//1840010 * COIN; //myfix for premine
+static const int64_t nBlockRewardReserve = 2000000 * COIN;
 /** Starting block subsidy */
 static const int64_t nBlockPoWReward = 1 * COIN;
 /** Superblock subsidy */
@@ -148,11 +148,10 @@ static const int64_t nSuperPoWReward = 2 * COIN;
 /** Genesis Block Height */                                                     
 static const int64_t nGenesisHeight = 0;
 /** Reserve Phase start block */ 
-static const int64_t nReservePhaseStart = 2;//1;//myfix for pow
+static const int64_t nReservePhaseStart = 2;
 /** Reserve Phase end block */ 
-static const int64_t nReservePhaseEnd = 50; //myfix for pow
+static const int64_t nReservePhaseEnd = 50; 
 /** Main Net Genesis Block */
-//myfix for genesis
 static const uint256 nGenesisBlock("0x000017724e56e4001903e466c010d309a30ca12401862e5cc4315df7563bd2e7");
 /** Test Net Genesis Block */
 static const uint256 hashTestNetGenesisBlock("0x0000ae1d0aaeda3c5554fc4d5192c481d002174e33985bb8c855edd899fd0346");

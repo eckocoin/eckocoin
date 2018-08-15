@@ -82,7 +82,6 @@ SendCoinsDialog::SendCoinsDialog(QWidget *parent) :
         CoinControlDialog::coinControl->useInstantX = useInstantX;
     }
 
-//myfix for next
     ui->checkUseDarksend->setVisible(false);
     ui->checkInstantX->setVisible(false);
 

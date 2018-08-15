@@ -1215,7 +1215,7 @@ int CMerkleTx::GetBlocksToMaturity() const
 {
     if (!(IsCoinBase() || IsCoinStake()))
         return 0;
-    return max(0, nCoinbaseMaturity - GetDepthInMainChain());//myfix for confirm +75
+    return max(0, nCoinbaseMaturity - GetDepthInMainChain());
 }
 
 
@@ -1469,19 +1469,12 @@ int randreward()
     int rand1 = generateMTRandom(seed, 1000000);
     return rand1;
 }
-//myfix for pow reward
 // miner's coin base reward
 int64_t GetProofOfWorkReward(int nHeight, int64_t nFees)
 {
     int64_t nSubsidy = nBlockPoWReward;
-/*
-    if (nHeight > nReservePhaseStart && nHeight < nReservePhaseEnd) {
-        nSubsidy = nBlockRewardReserve;
-    }
-    if(randreward() <= 8000 && nHeight > nReservePhaseEnd) // 8% Chance of superblock
-        nSubsidy = nSuperPoWReward;
-*/
-    if (nHeight < 151) {
+
+    if (nHeight < 152) {
         nSubsidy = nBlockRewardReserve;
     }
     // hardCap v2.1
@@ -1494,35 +1487,9 @@ int64_t GetProofOfWorkReward(int nHeight, int64_t nFees)
     LogPrint("creation", "GetProofOfWorkReward() : create=%s nSubsidy=%d\n", FormatMoney(nSubsidy), nSubsidy);
     return nSubsidy + nFees;
 }
-//myfix for pos reward : 10% per year
-/*
-(365 * 33 + 8) / 33 = 365.24 day
-int64_t nValueIn = txPrev.vout[txin.prevout.n].nValue;
-bnCentSecond += CBigNum(nValueIn) * (nTime-txPrev.nTime) / CENT; aCOIN * aSecs / CENT
-CBigNum bnCoinDay = bnCentSecond * CENT / COIN / (24 * 60 * 60); aCOIN * aSecs / CENT * CENT / COIN / 24hours
-COIN_YEAR_REWARD_FIXED = 10 * CENT
-int64_t nSubsidy = nCoinAge * COIN_YEAR_REWARD_FIXED * 33 / (365 * 33 + 8); 
-
-aCOIN * aSecs / CENT * CENT / COIN / 24hours(1day) * 10 * CENT / 365day = aCOIN * 0.1(10%) * aCoindays / 365
-*/
 // miner's coin stake reward
 int64_t GetProofOfStakeReward(const CBlockIndex* pindexPrev, int64_t nCoinAge, int64_t nFees)
 {
-/*
-    int64_t nSubsidy = nCoinAge * COIN_YEAR_REWARD * 33 / (365 * 33 + 8);
-
-    if(randreward() <= 8000) // 8% Chance of superblock
-        nSubsidy = nCoinAge * COIN_SPRB_REWARD * 33 / (365 * 33 + 8);
-    if(nBestHeight > RWRD_FIX_TOGGLE) // Correct block reward payouts
-    {
-        nSubsidy = nCoinAge * COIN_YEAR_REWARD_FIXED * 33 / (365 * 33 + 8);
-        if(randreward() <= 8000) // 8% Chance of superblock (Fixed)
-            nSubsidy = nCoinAge * COIN_SPRB_REWARD_FIXED * 33 / (365 * 33 + 8);
-        // Correct subsidy for proper MN allocation
-        if(nBestHeight > MN_FIX_TOGGLE)
-            nSubsidy = nCoinAge * MN_REWARD_FIXED * 33 / (365 * 33 + 8);
-    }
-*/
     int64_t nSubsidy = nCoinAge * COIN_YEAR_REWARD_FIXED * 33 / (365 * 33 + 8);
 
     // hardCap v2.1
@@ -1629,8 +1596,7 @@ unsigned int Terminal_Velocity_RateX(const CBlockIndex* pindexLast, bool fProofO
        // Differentiate PoW/PoS prev block
        const CBlockIndex* BlockVelocityType = GetLastBlockIndex(pindexLast, fProofOfStake);
        // Skew for less selected block type
-       //myfix ???
-       int64_t nNow = GetTime(); int64_t nThen = 1534204800;//1493596800; // Toggle skew system fork - Mon, 01 May 2017 00:00:00 GMT
+       int64_t nNow = GetTime(); int64_t nThen = 1534204800; // Toggle skew system fork - Mon, 01 May 2017 00:00:00 GMT
        if(nNow > nThen){if(prevPoW < prevPoS && !fProofOfStake){if((prevPoS-prevPoW) > 3) TerminalAverage /= 3;}
        else if(prevPoW > prevPoS && fProofOfStake){if((prevPoW-prevPoS) > 3) TerminalAverage /= 3;}
        if(TerminalAverage < 0.5) TerminalAverage = 0.5;} // limit skew to halving
@@ -4873,16 +4839,15 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
 // Define masternode payment value
 int64_t GetMasternodePayment(int nHeight, int64_t blockValue)
 {
-    //myfix for mn reward
-    int64_t ret = blockValue * 1/3;//1/6; // 1/6th
+    int64_t ret = blockValue * 1/3;
     return ret;
 
     // Correct MN payout to reflect posted rates
     if(nHeight > MN_FIX_TOGGLE)
     {
-        ret = blockValue * 5/6; // 5/6th
+        ret = blockValue * 5/6;
         if(randreward() <= 8000)
-            ret = blockValue * 4/6; // 4/6th
+            ret = blockValue * 4/6;
     }
 
     return ret;

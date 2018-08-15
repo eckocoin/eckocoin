@@ -47,19 +47,16 @@ public:
         // The message start string is designed to be unlikely to occur in normal data.
         // The characters are rarely used upper ASCII, not valid as UTF-8, and produce
         // a large 4-byte int at any alignment.
-        //myfix for net message
-        pchMessageStart[0] = 0x76;//a4;
-        pchMessageStart[1] = 0x8e;//3c;
-        pchMessageStart[2] = 0x91;//2e;
-        pchMessageStart[3] = 0xe4;//f9;
+        pchMessageStart[0] = 0x76;
+        pchMessageStart[1] = 0x8e;
+        pchMessageStart[2] = 0x91;
+        pchMessageStart[3] = 0xe4;
         vAlertPubKey = ParseHex("04c244288a8c6ebbf491443ebfa1207275d71cb009f201c118b00cf8e77641c7f1e63e330ba909842c009af375c0f5c1c7368e8d7e2066168c40ce3cb629cf212f");
-        //myfix for port
-        nDefaultPort = 15391;//10255;
-        nRPCPort = 15392;//10257;
+        nDefaultPort = 15391;
+        nRPCPort = 15392;
         bnProofOfWorkLimit = CBigNum(~uint256(0) >> 18);
-        bnProofOfStakeLimit = CBigNum(~uint256(0) >> 20);//myfix for pos time 18
+        bnProofOfStakeLimit = CBigNum(~uint256(0) >> 19);
 
-        //myfix for timestamp
         const char* pszTimestamp = "Start ECKOCoin at 08/14/2018 12:00AM UTC";
         std::vector<CTxIn> vin;
         vin.resize(1);
@@ -68,7 +65,6 @@ public:
         vout.resize(1);
         vout[0].nValue = nGenesisBlockReward;
         vout[0].SetEmpty();
-        //myfix for genesis tx
         CTransaction txNew(1, 1534204800, vin, vout, 0);//1493596800
         genesis.vtx.push_back(txNew);
         genesis.hashPrevBlock = 0;
@@ -87,60 +83,24 @@ public:
         genesis.hashMerkleRoot = 3995e1ed8ec51041a267880cc3bb9c0ca751272f88d9ee19b2786281929f19b8
         */
 
-        // myfix for genesis
-        if (false && genesis.GetHash() != hashGenesisBlock)
-        {
-            printf("Searching for genesis block...\n");
-            // This will figure out a valid hash and Nonce if you're
-            // creating a different genesis block:
-            uint256 hashTarget = CBigNum().SetCompact(genesis.nBits).getuint256();
-            uint256 thash;
- 
-            while(1)
-            {
-                // Generic scrypt
-                thash = genesis.GetHash();
-                if (thash <= hashTarget)
-                    break;
-                if ((genesis.nNonce & 0xFFF) == 0)
-                {
-                    printf("nonce %08X: hash = %s (target = %s)\n", genesis.nNonce, thash.ToString().c_str(), hashTarget.ToString().c_str());
-                }
-                ++genesis.nNonce;
-                if (genesis.nNonce == 0)
-                {
-                    printf("NONCE WRAPPED, incrementing time\n");
-                    ++genesis.nTime;
-                }
-            }
-            printf("genesis.nTime = %u \n", genesis.nTime);
-            printf("genesis.nNonce = %u \n", genesis.nNonce);
-            printf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str());
-            printf("genesis.hashMerkleRoot = %s\n", genesis.hashMerkleRoot.ToString().c_str());
-            printf("genesis.hashMerkleRoot = %s\n", genesis.hashMerkleRoot.ToString().c_str());
-        }
-
         hashGenesisBlock = genesis.GetHash();
         assert(hashGenesisBlock == nGenesisBlock);
         assert(genesis.hashMerkleRoot == nGenesisMerkle);
 
-        //myfix for address prefix E
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,33);//102); i
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,33);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,57);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,55);
         base58Prefixes[STEALTH_ADDRESS] = std::vector<unsigned char>(1,59);
         base58Prefixes[EXT_PUBLIC_KEY] = list_of(0x04)(0x88)(0xB2)(0x1E).convert_to_container<std::vector<unsigned char> >();
         base58Prefixes[EXT_SECRET_KEY] = list_of(0x04)(0x88)(0xAD)(0xE4).convert_to_container<std::vector<unsigned char> >();
 
-        //myfix for seednode
         vSeeds.push_back(CDNSSeedData("node1",  "50.28.16.228"));
         vSeeds.push_back(CDNSSeedData("node2",  "192.129.248.2"));
         convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
         nPoolMaxTransactions = 3;
-        strDarksendPoolDummyAddress = "iGrwXgFQbhiSBsxVSSCeQmty2qzCt4uS7Q";//myfix ???
-        //myfix for lastpowblock
-        nEndPoWBlock = 200;//0x7fffffff;
+        strDarksendPoolDummyAddress = "iGrwXgFQbhiSBsxVSSCeQmty2qzCt4uS7Q";
+        nEndPoWBlock = 250;
         nStartPoSBlock = 0;
     }
 

@@ -462,7 +462,6 @@ void BitcoinGUI::createToolBars()
     if (!fLiteMode){
         toolbar->addAction(messageAction);
     }
-//myfix for next
 //    toolbar->addAction(blockAction);
 //    toolbar->addAction(TradingAction);
     netLabel = new QLabel();
