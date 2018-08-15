@@ -1,0 +1,9 @@
+Building ECKO
+
+See doc/readme-qt.rst for instructions on building ECKO QT,
+the intended-for-end-users, nice-graphical-interface, reference
+implementation of ECKO.
+
+See doc/build-*.txt for instructions on building ECKOd,
+the intended-for-services, no-graphical-interface, reference
+implementation of ECKO.
