@@ -13,29 +13,33 @@ with no central authority: managing transactions, execution of contracts, and
 issuing money are carried out collectively by the network. ECKO [ECKO] is the name of 
 open source software which enables the use of this protocol.
 
-Specifications and General info
-------------------
-ECKO uses libsecp256k1,
-			  libgmp,
-			  Boost1.63,
-			  OR Boost1.57,  
-			  Openssl1.02k,
-			  Berkeley DB 6.2.23,
-			  QT5.8 to compile
+Coin Specs
+----------
 
-
-Block Spacing: 5 Minutes
-Stake Minimum Age: 15 Confirmations (PoS-v3) | 30 Minutes (PoS-v2)
-
-Port: 15391
-RPC Port: 15392
-
+<table>
+<tr><td>Coin name</td><td>ECKOCoin</td></tr>
+<tr><td>Coin ticker</td><td>ECKO</td></tr>
+<tr><td>Algorithm</td><td>X13</td></tr>
+<tr><td>Block time</td><td>60 sec</td></tr>
+<tr><td>Port</td><td>15391</td></tr>
+<tr><td>RPC Port</td><td>15392</td></tr>
+<tr><td>Address Prefix</td><td>E</td></tr>
+<tr><td>Type</td><td>POS/MN</td></tr>
+<tr><td>Max Total Supply</td><td>400 000 000 ECKO</td></tr>
+<tr><td>Premine</td><td>300 000 000 ECKO</td></tr>
+<tr><td>POS Rate</td><td>10% per Annum</td></tr>
+<tr><td>Coin Age</td><td>24 hours</td></tr>
+<tr><td>Masternode Collateral</td><td>1 00 000 ECKO</td></tr>
+<tr><td>Confirmation</td><td>15 blcok</td></tr>
+<tr><td>Masternode Rate</td><td>30% of POS</td></tr>
+</table>
 
 BUILD LINUX
 -----------
-1) git clone https://github.com/CryptoCoderz/ECKO
 
-2) cd ECKO/src
+1) git clone https://github.com/eckocoin/eckocoin
+
+2) cd eckocoin/src
 
 3) sudo make -f makefile.unix            # Headless
 
